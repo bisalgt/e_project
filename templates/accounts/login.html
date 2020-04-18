@@ -1,0 +1,19 @@
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<h1>Login Page</h1>
+
+<div class="col-sm-8 col-md-6"><br>
+    <h1> Login Page </h1><br>
+    <form method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-info" type="submit">Login</button>
+    </form>
+    <br><br>
+    {% if user.is_authenticated %}
+        <p> Hello {{user.username.upper}}, do you want to view your  <a href="{{user.get_absolute_url}}">Profile</a> ?</p>
+        <p> Do you want to <a href="{% url 'logout' %}"><button class="btn btn-danger btn-sm">LogOut</button></a>  {{user.username.upper}} ?</p>
+        <p> Or you want to <a href="{% url 'signup' %}"><button class="btn btn-warning btn-sm">SignUp</button></a> for someone ?</p>
+    {% endif %}
+</div>

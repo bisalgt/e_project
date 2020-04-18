@@ -1,0 +1,87 @@
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+th, td {
+  padding: 15px;
+}
+</style>
+
+
+<div class="container" style="background-color:rgb(100, 100, 100);">
+<br>
+<h2 class='text-center' >Welcome {{user.username}} ! </h2>
+    <div class='row' >
+        <div class="col-sm-2 col-md-3">
+        </div>
+        <div class="col-sm-8 col-md-6 text-center"><br>
+            {% if user.image %}
+                <a href="{{user.image.url}}">
+                    <figure class="effect-honey tm-user-item">
+                    <img src="{{user.image.url}}" alt="Image" class="img-fluid">
+                    <figcaption>
+                        <h2><i>{{user.title}} </i></h2>
+                    </figcaption>
+                    </figure>
+                </a>
+            {% else %}
+                <p>You don't have set your profile pic. Please update your profile. </p>
+            {% endif %}
+
+            {% if user.username %}
+               <p>Hello,{{user.username}}.</p>
+            {% endif %}
+    <div class="table-responsive-md">
+        <table style="background:rgb(120, 120, 120);">
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+        </tr>
+        <tr>
+            {% if user.first_name %}
+               <td>{{user.first_name}}</td>
+            {% else %}
+                <td> --- </td>
+            {% endif %}
+
+            {% if user.last_name %}
+                <td>{{user.last_name}}</td>
+            {% else %}
+                <td> --- </td>
+            {% endif %}
+
+            {% if user.email %}
+                <td>{{user.email}}</td>
+            {% else %}
+                <td> --- </td>
+            {% endif %}
+
+            {% if user.phone_number %}
+                <td>  {{user.phone_number}}</td>
+            {% else %}
+                <td> --- </td>
+            {% endif %}
+
+            {% if user.address %}
+                <td>{{user.address}} </td>
+            {% else %}
+                <td> --- </td>
+            {% endif %}
+        </tr>
+        </table>
+    </div><br>
+            <p> Do you want to update your profile?? <a href="{{user.get_absolute_url}}update/"> UPDATE </a></p>
+            <p> Create new profile?? <a href="{% url 'signup' %}"> SIGNUP </a></p>
+            <p> LOGOUT instead ?? <a href="{% url 'logout' %}"> LOGOUT </a></p>
+        </div>
+    </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
