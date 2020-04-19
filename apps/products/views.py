@@ -10,6 +10,7 @@ from apps.products.models import Product
 
 @login_required
 def product_list(request):
+    print('inside product list')
     object_list = Product.objects.all()
     filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
     current_order_products = []
@@ -22,7 +23,7 @@ def product_list(request):
         'object_list': object_list,
         'current_order_products': current_order_products
     }
-
+    print('something ----------------')
     return render(request, "products/product_list.html", context)
 
 from apps.products.forms import ProductForm

@@ -24,6 +24,8 @@ def order_details(request, **kwargs):
 
 @login_required
 def add_to_cart(request, **kwargs):
+    quantity = kwargs.get('quantity')
+    print(quantity)
     user_profile = get_object_or_404(Profile, user=request.user)
     product = Product.objects.filter(id=kwargs.get('item_id', '')).first()
     order_item, status = OrderItem.objects.get_or_create(product=product)
@@ -31,7 +33,8 @@ def add_to_cart(request, **kwargs):
     user_order.items.add(order_item)
     user_order.save()
     messages.info(request, "item added to cart")
-    return redirect(reverse('products:product_list'))
+    print('about to redirect')
+    return redirect('products/product_list/')
 
 
 

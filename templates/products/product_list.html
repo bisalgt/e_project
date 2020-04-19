@@ -1,5 +1,98 @@
 {% extends 'base.html' %}
 
+
+{% block style %}
+<style type="text/css">
+        .number-input input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    }
+
+    .number-input input[type=number]::-webkit-inner-spin-button,
+    .number-input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    }
+
+    .number-input {
+    margin-bottom: 3rem;
+    }
+
+    .number-input button {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    }
+
+    .number-input button:before,
+    .number-input button:after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    height: 2px;
+    transform: translate(-50%, -50%);
+    }
+
+    .number-input button.plus:after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .number-input input[type=number] {
+    text-align: center;
+    }
+
+    .number-input.number-input {
+    border: 1px solid #ced4da;
+    width: 10rem;
+    border-radius: .25rem;
+    }
+
+    .number-input.number-input button {
+    width: 2.6rem;
+    height: .7rem;
+    }
+
+    .number-input.number-input button.minus {
+    padding-left: 10px;
+    }
+
+    .number-input.number-input button:before,
+    .number-input.number-input button:after {
+    width: .7rem;
+    background-color: #495057;
+    }
+
+    .number-input.number-input input[type=number] {
+    max-width: 4rem;
+    padding: .5rem;
+    border: 1px solid #ced4da;
+    border-width: 0 1px;
+    font-size: 1rem;
+    height: 2rem;
+    color: #495057;
+    }
+
+    @media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance: none) and (stroke-color:transparent) {
+
+    .number-input.def-number-input.safari_only button:before,
+    .number-input.def-number-input.safari_only button:after {
+    margin-top: -.3rem;
+    }
+    }
+    }
+
+</style>
+
+{% endblock style %}
+
+
+
 {% block content %}
     {{ message }}
     <div class="row">
@@ -7,15 +100,38 @@
         <div class="col-sm-3">
             <p>{{ object.name }}</p>
             <p>Price: ${{ object.price }}</p>
-            {% if object in user.profile.ebooks.all %}
-            <!-- add a button here to see the product -->
+            <!-- add a button here to see the product{% url 'shopping_cart:add_to_cart' object.id %} -->
             You own this
-            {% elif object in current_order_products %}
             <a href="{% url 'shopping_cart:order_summary' %}" class="btn btn-warning">Go to Cart</a>
-            {% else %}
-            <a href="{% url 'shopping_cart:add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
-            {% endif %}
-        </div>
+
+            <!-- <a id="add_to_cart" href="" class="btn btn-warning">Add to Cart</a> -->
+            <a id="add_to_cart" href='' onclick="this.href='{% url 'shopping_cart:add_to_cart' object.id %}'+document.getElementById('qta_field').value">Add to Cart</a>
+            <a id="add_to_cart" href='' onclick="this.href='{% url 'shopping_cart:add_to_cart' object.id %}'+document.getElementById('qta_field').value">Add to Cart</a>
+            <div class="def-number-input number-input safari_only">
+              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+              <input class="quantity" min="1" name="quantity" value="1" type="number" id="qta_field">
+              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+            </div>
+
+            <!-- <input type="text" id="qta_field" value=""/> -->
     {% endfor %}
+
+
+
     </div>
 {% endblock content %}
+
+
+
+<!--
+    <script type="text/javascript">
+        $(document).ready(function(){
+            console.log('the function is ready');
+            $("#add_to_cart").click(function(){
+                this.href='{% url 'shopping_cart:add_to_cart' object.id %}'
+            });
+        });
+
+    </script>
+ -->
