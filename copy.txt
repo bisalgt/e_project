@@ -1,0 +1,29 @@
+
+{% block script %}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            console.log('ready doc')
+            var link_event = document.getElementById("add_to_cart")
+            var obj_id = document.getElementById("object_id").textContent
+            var value_event = document.getElementById("qta_field").value
+            console.log(link_event.href);
+            console.log(obj_id);
+            console.log(value_event);
+            if (value_event && obj_id){
+                    this.link_event.addEventListener("click", function(){
+                    this.link_event.href = "{% url 'shopping_cart:add_to_cart' obj_id value_event %}"
+                });
+            };
+            // if(value){
+            //     link_event.addEventListener("click", function() {
+            //     console.log('Called function');
+            //     console.log('');
+            //     });
+            // };
+
+        });
+    </script>
+
+{% endblock script %}
+

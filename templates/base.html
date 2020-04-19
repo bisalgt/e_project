@@ -24,16 +24,6 @@
     {% block script %}{% endblock script %}
 
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            console.log('the function is ready');
-            $("#add_to_cart").click(function(){
-                $.post( "products'product_list/", function( data ) {
-                  console.log('Post requ sent.');
-                });
-            });
-        });
 
-    </script>
 </body>
 </html>
