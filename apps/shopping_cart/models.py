@@ -5,8 +5,9 @@ from apps.products.models import Product
 
 
 class OrderItem(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
+    quantity = models.IntegerField(default=1)
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
 
@@ -27,4 +28,4 @@ class Order(models.Model):
         return sum([item.product.price for item in self.items.all()])
 
     def __str__(self):
-        return '{0} - {1}'.format(self.owner, self.ref_code)
+        return '{0}'.format(self.owner)

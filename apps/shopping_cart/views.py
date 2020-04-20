@@ -30,7 +30,14 @@ def add_to_cart(request, **kwargs):
     # print(quantity)
     user_profile = get_object_or_404(Profile, user=request.user)
     product = Product.objects.filter(id=kwargs.get('item_id', '')).first()
-    order_item, status = OrderItem.objects.get_or_create(product=product)
+    print('above here--')
+    # order_item = OrderItem.objects.get_or_create(product=product)
+    order_qs = Order.objects.filter(owner = user_profile)
+    print('order qs', order_qs[0].date_ordered)
+    print('order qs', order_qs[0].items.filter(product = product))
+    if order_qs[0].items.filter(product = product).exists():
+        pass
+    print('here now', order_item)
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
     user_order.items.add(order_item)
     user_order.save()
